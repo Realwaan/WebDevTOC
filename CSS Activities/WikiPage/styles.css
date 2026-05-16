@@ -1,0 +1,527 @@
+/*
+   wiki-styles.css
+   Shared stylesheet for all wiki pages.
+   Fandom-style dark theme with cyan highlights.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Rubik', sans-serif;
+  background: #000;
+  color: #e0e0e0;
+  font-size: 15px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+a {
+  color: #00d4fa;
+  text-decoration: none;
+}
+a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+img { max-width: 100%; display: block; }
+
+ul, ol {
+  padding-left: 22px;
+  margin-bottom: 12px;
+}
+li {
+  margin-bottom: 4px;
+  color: #ccc;
+}
+
+
+/* top bar */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #07070e;
+  border-bottom: 1px solid #1a1a30;
+  padding: 0 20px;
+  height: 46px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.topbar-logo {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #00d4fa;
+  letter-spacing: 1px;
+}
+
+.topbar-search {
+  display: flex;
+  align-items: center;
+  background: #151520;
+  border: 1px solid #282840;
+  border-radius: 18px;
+  padding: 4px 14px;
+  gap: 6px;
+  width: 240px;
+}
+
+.topbar-search input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #bbb;
+  font-family: 'Rubik', sans-serif;
+  font-size: 0.83rem;
+  width: 100%;
+}
+.topbar-search input::placeholder { color: #4a4a5a; }
+
+.topbar-right {
+  display: flex;
+  gap: 14px;
+  font-size: 0.8rem;
+}
+.topbar-right a { color: #888; }
+.topbar-right a:hover { color: #00d4fa; text-decoration: none; }
+
+
+/* wiki header + tabs */
+.wiki-header {
+  background: linear-gradient(140deg, #050510 0%, #080818 50%, #060612 100%);
+  border-bottom: 2px solid rgba(0,212,250,0.15);
+  padding: 24px 36px 0;
+}
+
+.wiki-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.wiki-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.wiki-stat {
+  background: rgba(0,212,250,0.1);
+  border: 1px solid rgba(0,212,250,0.3);
+  color: #00d4fa;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  padding: 3px 10px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.tab-nav {
+  display: flex;
+  gap: 1px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.tab-nav a {
+  display: inline-block;
+  padding: 9px 18px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #999;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid transparent;
+  border-bottom: none;
+  position: relative;
+  top: 2px;
+}
+.tab-nav a:hover {
+  color: #00d4fa;
+  background: rgba(0,212,250,0.05);
+  text-decoration: none;
+}
+.tab-nav a.current {
+  background: #0e0d0e;
+  color: #00d4fa;
+  border-color: rgba(0,212,250,0.2);
+  border-bottom-color: #0e0d0e;
+}
+
+
+/* page container */
+.page-wrap {
+  background: #0e0d0e;
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 70vh;
+  border-left: 1px solid rgba(255,255,255,0.04);
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+
+.breadcrumb {
+  background: #121220;
+  border-bottom: 1px solid #1a1a30;
+  padding: 7px 28px;
+  font-size: 0.77rem;
+  color: #555;
+}
+.breadcrumb a { font-size: 0.77rem; }
+.breadcrumb .sep { margin: 0 5px; color: #444; }
+
+
+/* two-column article layout */
+.article-wrap {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 0;
+}
+
+.article-body {
+  padding: 24px 28px 40px;
+  border-right: 1px solid #1a1a30;
+  min-width: 0;
+}
+
+.sidebar {
+  padding: 24px 18px;
+}
+
+
+/* article title area */
+.page-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  border-bottom: 2px solid #00d4fa;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+
+
+/* table of contents */
+.toc {
+  background: #0d0d18;
+  border: 1px solid #252540;
+  border-radius: 3px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  display: inline-block;
+  min-width: 200px;
+}
+
+.toc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ddd;
+}
+
+.toc-toggle {
+  font-size: 0.7rem;
+  color: #00d4fa;
+  cursor: pointer;
+}
+
+.toc ol {
+  list-style: decimal;
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+.toc ol li {
+  padding: 2px 0;
+  font-size: 0.83rem;
+  color: #aaa;
+}
+.toc ol li a { color: #bbb; }
+.toc ol li a:hover { color: #00d4fa; }
+
+.toc ol ol {
+  list-style: decimal;
+  margin-bottom: 0;
+}
+
+
+/* section headings */
+h2.section-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  margin-top: 32px;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #252540;
+}
+h2.section-title:first-of-type { margin-top: 6px; }
+
+h3.sub-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #00d4fa;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+p { color: #c0c0c0; margin-bottom: 12px; }
+
+
+/* infobox */
+.infobox {
+  border: 1px solid #252540;
+  border-radius: 3px;
+  overflow: hidden;
+  font-size: 0.82rem;
+  margin-bottom: 20px;
+  background: #0d0d18;
+}
+
+.infobox-title {
+  background: #00d4fa;
+  color: #000;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 9px 14px;
+  text-align: center;
+}
+
+.infobox-img {
+  padding: 10px;
+  text-align: center;
+  background: #0a0a14;
+  border-bottom: 1px solid #252540;
+}
+.infobox-img img {
+  border: 2px solid rgba(0,212,250,0.25);
+  border-radius: 2px;
+  margin: 0 auto;
+}
+.infobox-img figcaption {
+  font-size: 0.7rem;
+  color: #666;
+  margin-top: 5px;
+  font-style: italic;
+}
+
+.infobox table { width: 100%; border-collapse: collapse; }
+.infobox tr:nth-child(odd) { background: #161628; }
+.infobox tr:nth-child(even) { background: #0d0d18; }
+
+.infobox td {
+  padding: 6px 11px;
+  border-bottom: 1px solid #1a1a30;
+  vertical-align: top;
+}
+.infobox td:first-child {
+  color: #777;
+  font-weight: 500;
+  white-space: nowrap;
+  width: 40%;
+}
+.infobox td:last-child { color: #ddd; }
+
+
+/* category tags at bottom of infobox */
+.categories {
+  margin-top: 16px;
+}
+.categories-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #999;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.cat-tag {
+  display: inline-block;
+  background: rgba(0,212,250,0.06);
+  border: 1px solid rgba(0,212,250,0.2);
+  color: #00d4fa;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin: 2px 2px;
+}
+
+
+/* wiki tables */
+.wiki-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 0.84rem;
+}
+.wiki-table thead {
+  background: #00d4fa;
+  color: #000;
+}
+.wiki-table th {
+  padding: 8px 12px;
+  text-align: left;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+}
+.wiki-table tbody tr:nth-child(odd) { background: #161628; }
+.wiki-table tbody tr:nth-child(even) { background: #111120; }
+.wiki-table td {
+  padding: 7px 12px;
+  border-bottom: 1px solid #1a1a30;
+  color: #c0c0c0;
+}
+
+
+/* code display */
+pre.code {
+  background: #08080f;
+  border: 1px solid #1a1a30;
+  border-left: 3px solid #00d4fa;
+  border-radius: 3px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.81rem;
+  color: #a0cce0;
+  line-height: 1.55;
+  white-space: pre;
+}
+
+
+/* callout / note */
+.callout {
+  background: rgba(0,212,250,0.04);
+  border-left: 3px solid #00d4fa;
+  padding: 10px 14px;
+  margin: 16px 0;
+  font-size: 0.86rem;
+  color: #b0c8d0;
+  border-radius: 0 3px 3px 0;
+}
+
+
+/* see also links */
+.see-also {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.see-also a {
+  background: #0d0d18;
+  border: 1px solid #252540;
+  padding: 7px 14px;
+  font-size: 0.82rem;
+  border-radius: 3px;
+  color: #00d4fa;
+}
+.see-also a:hover {
+  border-color: #00d4fa;
+  background: rgba(0,212,250,0.06);
+  text-decoration: none;
+}
+
+
+/* grid cards (main page only) */
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 16px 0;
+}
+.topic-card {
+  display: block;
+  background: #0d0d18;
+  border: 1px solid #252540;
+  border-radius: 4px;
+  padding: 16px 14px;
+  text-align: center;
+  color: #00d4fa;
+}
+.topic-card:hover {
+  border-color: #00d4fa;
+  text-decoration: none;
+}
+.topic-card h4 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.topic-card p {
+  font-size: 0.75rem;
+  color: #888;
+  margin: 0;
+  line-height: 1.4;
+}
+
+
+/* footer */
+.site-footer {
+  background: #07070e;
+  border-top: 1px solid #1a1a30;
+  padding: 22px 36px;
+  text-align: center;
+  color: #444;
+  font-size: 0.78rem;
+}
+.site-footer a { color: #555; }
+.site-footer a:hover { color: #00d4fa; text-decoration: none; }
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.footer-line {
+  border: none;
+  border-top: 1px solid #1a1a30;
+  margin: 12px auto;
+  max-width: 500px;
+}
+
+
+/* scrollbar styling */
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-track { background: #0a0a10; }
+::-webkit-scrollbar-thumb { background: #252540; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #00d4fa44; }

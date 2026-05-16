@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Web Experience Wiki</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="topbar">
+    <span class="topbar-logo">FANDOM</span>
+    <div class="topbar-search">
+      <input type="text" placeholder="Search this wiki">
+    </div>
+    <div class="topbar-right">
+      <a href="#">Explore</a>
+      <a href="#">Sign In</a>
+    </div>
+  </nav>
+
+  <header class="wiki-header">
+    <div class="wiki-header-top">
+      <span class="wiki-title">3D Web Experience Wiki</span>
+      <span class="wiki-stat">6 pages</span>
+    </div>
+    <nav class="tab-nav">
+      <a href="index.html" class="current">Home</a>
+      <a href="threejs.html">Three.js</a>
+      <a href="react-three-fiber.html">React Three Fiber</a>
+      <a href="webgl.html">WebGL</a>
+      <a href="spline.html">Spline</a>
+      <a href="tools.html">Tools &amp; Pipeline</a>
+    </nav>
+  </header>
+
+  <div class="page-wrap">
+    <div class="breadcrumb">
+      <a href="index.html">3D Web Experience Wiki</a>
+      <span class="sep">&rsaquo;</span>
+      Main Page
+    </div>
+
+    <div class="article-wrap">
+      <main class="article-body">
+        <h1 class="page-title">3D Web Experience Wiki</h1>
+
+        <div class="toc">
+          <div class="toc-header">
+            Contents <span class="toc-toggle">[hide]</span>
+          </div>
+          <ol>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#topics">Topics covered</a></li>
+            <li><a href="#getting-started">Getting started</a></li>
+            <li><a href="#comparison">Comparison of tools</a></li>
+            <li><a href="#external">External links</a></li>
+          </ol>
+        </div>
+
+        <h2 class="section-title" id="overview">Overview</h2>
+        <p>
+          Welcome to the <strong>3D Web Experience Wiki</strong>, a collection of pages documenting
+          the technologies used for rendering three-dimensional graphics in web browsers. The articles
+          here cover everything from the low-level <a href="webgl.html">WebGL</a> API to higher-level
+          libraries like <a href="threejs.html">Three.js</a> and
+          <a href="react-three-fiber.html">React Three Fiber</a>.
+        </p>
+        <p>
+          Over the past several years, browser support for hardware-accelerated graphics has matured
+          significantly. What used to require Flash or Java applets now runs natively in every major
+          browser through WebGL. This shift opened the door for a whole ecosystem of tools, frameworks,
+          and workflows that make 3D content on the web practical for production use.
+        </p>
+
+        <h2 class="section-title" id="topics">Topics covered</h2>
+        <p>This wiki is organized into the following topic pages:</p>
+
+        <div class="topic-grid">
+          <a href="threejs.html" class="topic-card">
+            <h4>Three.js</h4>
+            <p>The most widely used JavaScript 3D library</p>
+          </a>
+          <a href="react-three-fiber.html" class="topic-card">
+            <h4>React Three Fiber</h4>
+            <p>A React renderer for Three.js scenes</p>
+          </a>
+          <a href="webgl.html" class="topic-card">
+            <h4>WebGL</h4>
+            <p>The underlying browser graphics API</p>
+          </a>
+          <a href="spline.html" class="topic-card">
+            <h4>Spline</h4>
+            <p>Visual design tool for web 3D content</p>
+          </a>
+          <a href="tools.html" class="topic-card">
+            <h4>Tools &amp; Pipeline</h4>
+            <p>Asset formats, optimization, and compression</p>
+          </a>
+        </div>
+
+        <h2 class="section-title" id="getting-started">Getting started</h2>
+        <p>
+          If you are new to 3D on the web, the choice of tool depends mostly on your project
+          requirements and existing tech stack. Here is a rough guide:
+        </p>
+        <ul>
+          <li>If you want something visual with minimal coding, try <a href="spline.html">Spline</a>.</li>
+          <li>If you are already using React, <a href="react-three-fiber.html">React Three Fiber</a> 
+            will feel natural.</li>
+          <li>For full control without a framework, <a href="threejs.html">Three.js</a> on its own
+            is the standard choice.</li>
+          <li>Raw <a href="webgl.html">WebGL</a> is mainly relevant when building custom rendering 
+            engines or writing shader-heavy effects.</li>
+        </ul>
+
+        <h2 class="section-title" id="comparison">Comparison of tools</h2>
+        <table class="wiki-table">
+          <thead>
+            <tr>
+              <th>Tool</th>
+              <th>Best for</th>
+              <th>Learning curve</th>
+              <th>Control</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="spline.html">Spline</a></td>
+              <td>Prototypes, designers</td>
+              <td>Low</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td><a href="react-three-fiber.html">React Three Fiber</a></td>
+              <td>React projects</td>
+              <td>Medium</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td><a href="threejs.html">Three.js</a></td>
+              <td>General 3D, non-React</td>
+              <td>High</td>
+              <td>Maximum</td>
+            </tr>
+            <tr>
+              <td><a href="webgl.html">WebGL</a></td>
+              <td>Custom engines, shaders</td>
+              <td>Very high</td>
+              <td>Maximum</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2 class="section-title" id="external">External links</h2>
+        <ul>
+          <li><a href="#">Three.js documentation</a> (threejs.org)</li>
+          <li><a href="#">React Three Fiber on GitHub</a> (pmndrs/react-three-fiber)</li>
+          <li><a href="#">Spline</a> (spline.design)</li>
+          <li><a href="#">WebGL Fundamentals</a> (webglfundamentals.org)</li>
+          <li><a href="#">Three.js community forum</a> (discourse.threejs.org)</li>
+        </ul>
+
+      </main>
+
+      <aside class="sidebar">
+        <div class="infobox">
+          <div class="infobox-title">3D Web Experience</div>
+          <table>
+            <tr><td>Subject</td><td>Web Development</td></tr>
+            <tr><td>Category</td><td>3D Graphics</td></tr>
+            <tr><td>Core API</td><td><a href="webgl.html">WebGL</a></td></tr>
+            <tr><td>Libraries</td><td><a href="threejs.html">Three.js</a>, <a href="react-three-fiber.html">R3F</a></td></tr>
+            <tr><td>Design tools</td><td><a href="spline.html">Spline</a></td></tr>
+            <tr><td>Model format</td><td>glTF / GLB</td></tr>
+            <tr><td>Languages</td><td>JavaScript, GLSL</td></tr>
+          </table>
+        </div>
+
+        <div class="categories">
+          <div class="categories-label">Categories</div>
+          <span class="cat-tag">3D Graphics</span>
+          <span class="cat-tag">WebGL</span>
+          <span class="cat-tag">JavaScript</span>
+          <span class="cat-tag">Web Development</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-nav">
+      <a href="index.html">Main Page</a>
+      <a href="threejs.html">Three.js</a>
+      <a href="react-three-fiber.html">React Three Fiber</a>
+      <a href="webgl.html">WebGL</a>
+      <a href="spline.html">Spline</a>
+      <a href="tools.html">Tools</a>
+    </div>
+    <hr class="footer-line">
+    <p>3D Web Experience Wiki &copy; 2026. Content is available under Creative Commons Attribution-ShareAlike.</p>
+  </footer>
+
+</body>
+</html>
+

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three.js - 3D Web Experience Wiki</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="topbar">
+    <span class="topbar-logo">FANDOM</span>
+    <div class="topbar-search">
+      <input type="text" placeholder="Search this wiki">
+    </div>
+    <div class="topbar-right">
+      <a href="#">Explore</a>
+      <a href="#">Sign In</a>
+    </div>
+  </nav>
+
+  <header class="wiki-header">
+    <div class="wiki-header-top">
+      <span class="wiki-title">3D Web Experience Wiki</span>
+      <span class="wiki-stat">6 pages</span>
+    </div>
+    <nav class="tab-nav">
+      <a href="index.html">Home</a>
+      <a href="threejs.html" class="current">Three.js</a>
+      <a href="react-three-fiber.html">React Three Fiber</a>
+      <a href="webgl.html">WebGL</a>
+      <a href="spline.html">Spline</a>
+      <a href="tools.html">Tools &amp; Pipeline</a>
+    </nav>
+  </header>
+
+  <div class="page-wrap">
+    <div class="breadcrumb">
+      <a href="index.html">3D Web Experience Wiki</a>
+      <span class="sep">&rsaquo;</span>
+      <a href="#">Libraries</a>
+      <span class="sep">&rsaquo;</span>
+      Three.js
+    </div>
+
+    <div class="article-wrap">
+      <main class="article-body">
+        <h1 class="page-title">Three.js</h1>
+
+        <div class="toc">
+          <div class="toc-header">
+            Contents <span class="toc-toggle">[hide]</span>
+          </div>
+          <ol>
+            <li><a href="#about">About</a></li>
+            <li><a href="#history">History</a></li>
+            <li><a href="#concepts">Core concepts</a>
+              <ol>
+                <li><a href="#scene">Scene</a></li>
+                <li><a href="#camera">Camera</a></li>
+                <li><a href="#renderer">Renderer</a></li>
+                <li><a href="#mesh">Geometry and materials</a></li>
+              </ol>
+            </li>
+            <li><a href="#example">Example code</a></li>
+            <li><a href="#uses">Common use cases</a></li>
+            <li><a href="#seealso">See also</a></li>
+          </ol>
+        </div>
+
+        <h2 class="section-title" id="about">About</h2>
+        <p>
+          <strong>Three.js</strong> is an open-source JavaScript library for creating 3D graphics
+          that run in web browsers using <a href="webgl.html">WebGL</a>. It wraps the verbose, low-level
+          WebGL API into something that is actually practical to work with, handling scene graphs, cameras,
+          materials, and render loops so you don't have to write all of that from scratch.
+        </p>
+        <p>
+          It is by far the most popular library for 3D on the web. Most frameworks and tools in this space,
+          including <a href="react-three-fiber.html">React Three Fiber</a>, are built on top of it.
+        </p>
+
+        <h2 class="section-title" id="history">History</h2>
+        <p>
+          Three.js was created by Ricardo Cabello, known online as "Mr.doob," and first released in 2010.
+          It started as an experiment porting a Processing sketch to JavaScript and grew into the de facto
+          standard for browser-based 3D rendering. The library is MIT-licensed and actively maintained on
+          GitHub with regular monthly releases.
+        </p>
+
+        <h2 class="section-title" id="concepts">Core concepts</h2>
+
+        <h3 class="sub-title" id="scene">Scene</h3>
+        <p>
+          The Scene acts as a container for everything: meshes, lights, cameras, helpers. You add objects
+          to the scene and the renderer draws whatever the camera can see. Think of it as the stage in a
+          theater production.
+        </p>
+
+        <h3 class="sub-title" id="camera">Camera</h3>
+        <p>
+          The most commonly used camera type is <code>PerspectiveCamera</code>, which simulates how the
+          human eye perceives depth. You set a field of view (typically 50-75 degrees), aspect ratio, and
+          near/far clipping planes. There is also <code>OrthographicCamera</code> for isometric or
+          top-down views.
+        </p>
+
+        <h3 class="sub-title" id="renderer">Renderer</h3>
+        <p>
+          <code>WebGLRenderer</code> takes a scene and a camera and draws the result onto an HTML canvas
+          element. Through the renderer you can control resolution, antialiasing, shadow maps, tone mapping,
+          and output color space.
+        </p>
+
+        <h3 class="sub-title" id="mesh">Geometry and materials</h3>
+        <p>
+          A Mesh is just a geometry (shape defined by vertices) combined with a material (how the surface
+          looks). Three.js ships with basic geometries like <code>BoxGeometry</code>,
+          <code>SphereGeometry</code>, and <code>PlaneGeometry</code>. For materials,
+          <code>MeshStandardMaterial</code> is the go-to for physically based rendering, while
+          <code>MeshBasicMaterial</code> is useful when you need flat, unlit surfaces.
+        </p>
+
+        <h2 class="section-title" id="example">Example code</h2>
+        <p>A minimal rotating cube:</p>
+<pre class="code">import * as THREE from 'three';
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(
+  75, window.innerWidth / window.innerHeight, 0.1, 1000
+);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshStandardMaterial({ color: 0x2194ce });
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+
+const light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(5, 5, 5);
+scene.add(light);
+
+camera.position.z = 3;
+
+function animate() {
+  requestAnimationFrame(animate);
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
+  renderer.render(scene, camera);
+}
+animate();</pre>
+
+        <h2 class="section-title" id="uses">Common use cases</h2>
+        <table class="wiki-table">
+          <thead>
+            <tr><th>Use case</th><th>Description</th><th>Difficulty</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Product configurators</td><td>3D model viewers where users can rotate and customize products</td><td>Medium</td></tr>
+            <tr><td>Landing page visuals</td><td>Animated particles, shapes, or backgrounds for hero sections</td><td>Low-Medium</td></tr>
+            <tr><td>Data visualization</td><td>3D scatter plots, globe displays, network graphs</td><td>Medium</td></tr>
+            <tr><td>Browser games</td><td>Casual 3D games running in the browser</td><td>High</td></tr>
+            <tr><td>Architectural walkthroughs</td><td>Navigate through 3D building models</td><td>High</td></tr>
+          </tbody>
+        </table>
+
+        <h2 class="section-title" id="seealso">See also</h2>
+        <div class="see-also">
+          <a href="react-three-fiber.html">React Three Fiber</a>
+          <a href="webgl.html">WebGL</a>
+          <a href="tools.html">Tools &amp; Pipeline</a>
+          <a href="spline.html">Spline</a>
+        </div>
+
+      </main>
+
+      <aside class="sidebar">
+        <div class="infobox">
+          <div class="infobox-title">Three.js</div>
+          <table>
+            <tr><td>Developer</td><td>Ricardo Cabello (Mr.doob)</td></tr>
+            <tr><td>Initial release</td><td>2010</td></tr>
+            <tr><td>Written in</td><td>JavaScript</td></tr>
+            <tr><td>Rendering</td><td><a href="webgl.html">WebGL</a></td></tr>
+            <tr><td>License</td><td>MIT</td></tr>
+            <tr><td>Repository</td><td>github.com/mrdoob/three.js</td></tr>
+          </table>
+        </div>
+
+        <div class="categories">
+          <div class="categories-label">Categories</div>
+          <span class="cat-tag">JavaScript libraries</span>
+          <span class="cat-tag">3D Graphics</span>
+          <span class="cat-tag">WebGL</span>
+          <span class="cat-tag">Open source</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-nav">
+      <a href="index.html">Main Page</a>
+      <a href="threejs.html">Three.js</a>
+      <a href="react-three-fiber.html">React Three Fiber</a>
+      <a href="webgl.html">WebGL</a>
+      <a href="spline.html">Spline</a>
+      <a href="tools.html">Tools</a>
+    </div>
+    <hr class="footer-line">
+    <p>3D Web Experience Wiki &copy; 2026. Content is available under Creative Commons Attribution-ShareAlike.</p>
+  </footer>
+
+</body>
+</html>
+

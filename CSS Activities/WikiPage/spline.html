@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spline - 3D Web Experience Wiki</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="topbar">
+    <span class="topbar-logo">FANDOM</span>
+    <div class="topbar-search">
+      <input type="text" placeholder="Search this wiki">
+    </div>
+    <div class="topbar-right">
+      <a href="#">Explore</a>
+      <a href="#">Sign In</a>
+    </div>
+  </nav>
+
+  <header class="wiki-header">
+    <div class="wiki-header-top">
+      <span class="wiki-title">3D Web Experience Wiki</span>
+      <span class="wiki-stat">6 pages</span>
+    </div>
+    <nav class="tab-nav">
+      <a href="index.html">Home</a>
+      <a href="threejs.html">Three.js</a>
+      <a href="react-three-fiber.html">React Three Fiber</a>
+      <a href="webgl.html">WebGL</a>
+      <a href="spline.html" class="current">Spline</a>
+      <a href="tools.html">Tools &amp; Pipeline</a>
+    </nav>
+  </header>
+
+  <div class="page-wrap">
+    <div class="breadcrumb">
+      <a href="index.html">3D Web Experience Wiki</a>
+      <span class="sep">&rsaquo;</span>
+      <a href="#">Design Tools</a>
+      <span class="sep">&rsaquo;</span>
+      Spline
+    </div>
+
+    <div class="article-wrap">
+      <main class="article-body">
+        <h1 class="page-title">Spline</h1>
+
+        <div class="toc">
+          <div class="toc-header">
+            Contents <span class="toc-toggle">[hide]</span>
+          </div>
+          <ol>
+            <li><a href="#about">About</a></li>
+            <li><a href="#workflow">Editor workflow</a></li>
+            <li><a href="#embedding">Embedding in websites</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#limitations">Limitations</a></li>
+            <li><a href="#seealso">See also</a></li>
+          </ol>
+        </div>
+
+        <h2 class="section-title" id="about">About</h2>
+        <p>
+          <strong>Spline</strong> is a browser-based 3D design tool that lets you create interactive
+          scenes for the web without writing code. The interface is similar to tools like Figma, but
+          works in three dimensions — you add shapes, apply materials, set up lighting, and define
+          interactions all through a visual editor.
+        </p>
+        <p>
+          Spline is primarily aimed at designers and teams who want to add 3D elements to websites
+          quickly. For projects that need custom shaders or complex logic, a code-based approach
+          with <a href="threejs.html">Three.js</a> or
+          <a href="react-three-fiber.html">React Three Fiber</a> is usually more appropriate.
+        </p>
+
+        <h2 class="section-title" id="workflow">Editor workflow</h2>
+        <p>The general process for creating something in Spline looks like this:</p>
+        <ol>
+          <li><strong>Scene setup</strong> — Add primitives (cubes, spheres, custom shapes, text) and 
+            position them in 3D space using drag handles.</li>
+          <li><strong>Materials</strong> — Apply colors, gradients, glass and metallic presets, or
+            environment maps through the side panel.</li>
+          <li><strong>Animation</strong> — Define states and transitions triggered by hover, click, or 
+            scroll events. Also supports keyframe animation for more complex motion.</li>
+          <li><strong>Export</strong> — Publish as a link, embed via iframe, export as a React component, 
+            or download a <code>.splinecode</code> file for self-hosting.</li>
+        </ol>
+
+        <h2 class="section-title" id="embedding">Embedding in websites</h2>
+        <p>There are a few ways to get a Spline scene into a web page:</p>
+
+        <h3 class="sub-title">React component</h3>
+<pre class="code">import Spline from '@splinetool/react-spline';
+
+export default function Scene() {
+  return (
+    &lt;Spline scene="https://prod.spline.design/xxx/scene.splinecode" /&gt;
+  );
+}</pre>
+
+        <h3 class="sub-title">Vanilla JavaScript</h3>
+<pre class="code">import { Application } from '@splinetool/runtime';
+
+const canvas = document.getElementById('canvas3d');
+const app = new Application(canvas);
+app.load('https://prod.spline.design/xxx/scene.splinecode');</pre>
+
+        <h3 class="sub-title">Iframe</h3>
+        <p>The simplest option — no npm install needed, just paste the embed URL:</p>
+<pre class="code">&lt;iframe src="https://my.spline.design/xxx"
+        width="100%" height="500"
+        frameborder="0"&gt;&lt;/iframe&gt;</pre>
+
+        <h2 class="section-title" id="features">Features</h2>
+        <table class="wiki-table">
+          <thead>
+            <tr><th>Feature</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Real-time editor</td><td>Browser-based, no install required</td></tr>
+            <tr><td>Interactions</td><td>Hover, click, and scroll triggers on objects</td></tr>
+            <tr><td>Material presets</td><td>Glass, metal, gradients, glow effects</td></tr>
+            <tr><td>Physics</td><td>Built-in gravity, collisions, constraints</td></tr>
+            <tr><td>Collaboration</td><td>Real-time multiplayer editing</td></tr>
+            <tr><td>Export options</td><td>React, vanilla JS, iframe, downloadable file</td></tr>
+          </tbody>
+        </table>
+
+        <h2 class="section-title" id="limitations">Limitations</h2>
+        <p>There are some trade-offs to be aware of:</p>
+        <ul>
+          <li>No custom shader support — you are limited to the built-in material options</li>
+          <li>The Spline runtime adds some weight to page load</li>
+          <li>Scenes are tied to Spline's ecosystem (hosting or runtime)</li>
+          <li>Complex scenes can perform poorly on mobile devices</li>
+          <li>Some features require a paid subscription</li>
+        </ul>
+
+        <h2 class="section-title" id="seealso">See also</h2>
+        <div class="see-also">
+          <a href="threejs.html">Three.js</a>
+          <a href="react-three-fiber.html">React Three Fiber</a>
+          <a href="tools.html">Tools &amp; Pipeline</a>
+        </div>
+
+      </main>
+
+      <aside class="sidebar">
+        <div class="infobox">
+          <div class="infobox-title">Spline</div>
+          <table>
+            <tr><td>Type</td><td>Design tool</td></tr>
+            <tr><td>Platform</td><td>Browser-based</td></tr>
+            <tr><td>Output</td><td>React, JS, iframe</td></tr>
+            <tr><td>Code required</td><td>No (optional)</td></tr>
+            <tr><td>Collaboration</td><td>Real-time</td></tr>
+            <tr><td>Free tier</td><td>Available (limited)</td></tr>
+          </table>
+        </div>
+
+        <div class="categories">
+          <div class="categories-label">Categories</div>
+          <span class="cat-tag">Design tools</span>
+          <span class="cat-tag">No-code</span>
+          <span class="cat-tag">3D Graphics</span>
+          <span class="cat-tag">Web Development</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-nav">
+      <a href="index.html">Main Page</a>
+      <a href="threejs.html">Three.js</a>
+      <a href="react-three-fiber.html">React Three Fiber</a>
+      <a href="webgl.html">WebGL</a>
+      <a href="spline.html">Spline</a>
+      <a href="tools.html">Tools</a>
+    </div>
+    <hr class="footer-line">
+    <p>3D Web Experience Wiki &copy; 2026. Content is available under Creative Commons Attribution-ShareAlike.</p>
+  </footer>
+
+</body>
+</html>
+

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Three Fiber - 3D Web Experience Wiki</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="topbar">
+    <span class="topbar-logo">FANDOM</span>
+    <div class="topbar-search">
+      <input type="text" placeholder="Search this wiki">
+    </div>
+    <div class="topbar-right">
+      <a href="#">Explore</a>
+      <a href="#">Sign In</a>
+    </div>
+  </nav>
+
+  <header class="wiki-header">
+    <div class="wiki-header-top">
+      <span class="wiki-title">3D Web Experience Wiki</span>
+      <span class="wiki-stat">6 pages</span>
+    </div>
+    <nav class="tab-nav">
+      <a href="index.html">Home</a>
+      <a href="threejs.html">Three.js</a>
+      <a href="react-three-fiber.html" class="current">React Three Fiber</a>
+      <a href="webgl.html">WebGL</a>
+      <a href="spline.html">Spline</a>
+      <a href="tools.html">Tools &amp; Pipeline</a>
+    </nav>
+  </header>
+
+  <div class="page-wrap">
+    <div class="breadcrumb">
+      <a href="index.html">3D Web Experience Wiki</a>
+      <span class="sep">&rsaquo;</span>
+      <a href="#">Libraries</a>
+      <span class="sep">&rsaquo;</span>
+      React Three Fiber
+    </div>
+
+    <div class="article-wrap">
+      <main class="article-body">
+        <h1 class="page-title">React Three Fiber</h1>
+
+        <div class="toc">
+          <div class="toc-header">
+            Contents <span class="toc-toggle">[hide]</span>
+          </div>
+          <ol>
+            <li><a href="#about">About</a></li>
+            <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="#api">Key components and hooks</a></li>
+            <li><a href="#usage">Usage example</a></li>
+            <li><a href="#drei">Drei helper library</a></li>
+            <li><a href="#scroll-3d">Scroll-driven animation</a></li>
+            <li><a href="#seealso">See also</a></li>
+          </ol>
+        </div>
+
+        <h2 class="section-title" id="about">About</h2>
+        <p>
+          <strong>React Three Fiber</strong> (often abbreviated R3F) is a React renderer for
+          <a href="threejs.html">Three.js</a>. Rather than calling Three.js imperatively with
+          <code>new THREE.Mesh()</code>, R3F lets you describe 3D scenes using JSX — the same
+          syntax you already know from building React UIs.
+        </p>
+        <p>
+          It is maintained by the Poimandres (Pmndrs) open-source collective. Despite what the
+          declarative syntax might suggest, R3F does not simplify or limit Three.js in any way.
+          Every Three.js class is available as a JSX element, and you still have full access to
+          the underlying objects through refs.
+        </p>
+
+        <h2 class="section-title" id="how-it-works">How it works</h2>
+        <p>
+          R3F provides a <code>&lt;Canvas&gt;</code> component that sets up a Three.js scene,
+          camera, and WebGL renderer automatically. Inside this canvas, standard Three.js
+          objects like meshes, lights, and groups become React components. State changes trigger
+          re-renders just like any other React component, and the library handles all the
+          synchronization with Three.js internally.
+        </p>
+        <p>
+          The <code>useFrame</code> hook gives you access to the animation loop — it fires on
+          every frame and is where you put any per-frame logic like rotations or physics updates.
+        </p>
+
+        <h2 class="section-title" id="api">Key components and hooks</h2>
+        <table class="wiki-table">
+          <thead>
+            <tr><th>Name</th><th>Type</th><th>Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>&lt;Canvas&gt;</code></td><td>Component</td><td>Root container, creates the scene and renderer</td></tr>
+            <tr><td><code>&lt;mesh&gt;</code></td><td>Component</td><td>3D object composed of geometry + material</td></tr>
+            <tr><td><code>useFrame()</code></td><td>Hook</td><td>Runs callback on every render frame</td></tr>
+            <tr><td><code>useThree()</code></td><td>Hook</td><td>Access the scene, camera, and renderer</td></tr>
+            <tr><td><code>useLoader()</code></td><td>Hook</td><td>Load assets like textures or models</td></tr>
+          </tbody>
+        </table>
+
+        <h2 class="section-title" id="usage">Usage example</h2>
+        <p>Spinning box with standard material:</p>
+<pre class="code">import { Canvas, useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
+
+function Box() {
+  const mesh = useRef();
+
+  useFrame(() =&gt; {
+    mesh.current.rotation.x += 0.01;
+    mesh.current.rotation.y += 0.01;
+  });
+
+  return (
+    &lt;mesh ref={mesh}&gt;
+      &lt;boxGeometry args={[1, 1, 1]} /&gt;
+      &lt;meshStandardMaterial color="#2194ce" /&gt;
+    &lt;/mesh&gt;
+  );
+}
+
+export default function App() {
+  return (
+    &lt;Canvas&gt;
+      &lt;ambientLight intensity={0.5} /&gt;
+      &lt;directionalLight position={[5, 5, 5]} /&gt;
+      &lt;Box /&gt;
+    &lt;/Canvas&gt;
+  );
+}</pre>
+
+        <h2 class="section-title" id="drei">Drei helper library</h2>
+        <p>
+          <strong>@react-three/drei</strong> is a companion library that provides commonly needed
+          components so you don't have to build them yourself:
+        </p>
+        <table class="wiki-table">
+          <thead>
+            <tr><th>Component</th><th>What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>OrbitControls</code></td><td>Mouse and touch camera orbit controls</td></tr>
+            <tr><td><code>useGLTF</code></td><td>Loads and caches .glb / .gltf models</td></tr>
+            <tr><td><code>Environment</code></td><td>HDR environment maps for lighting</td></tr>
+            <tr><td><code>Text</code></td><td>3D text rendering using SDF fonts</td></tr>
+            <tr><td><code>ScrollControls</code></td><td>Ties the scene to page scroll position</td></tr>
+          </tbody>
+        </table>
+
+        <h2 class="section-title" id="scroll-3d">Scroll-driven animation</h2>
+        <p>
+          One of the more impressive things you can do with R3F is tie 3D transformations directly
+          to scroll position. The <code>ScrollControls</code> and <code>useScroll</code> components
+          from drei make this straightforward:
+        </p>
+<pre class="code">import { ScrollControls, useScroll } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+
+function RotatingModel() {
+  const scroll = useScroll();
+  const ref = useRef();
+
+  useFrame(() =&gt; {
+    ref.current.rotation.y = scroll.offset * Math.PI * 2;
+  });
+
+  return &lt;mesh ref={ref}&gt;...&lt;/mesh&gt;;
+}
+
+export default function Scene() {
+  return (
+    &lt;Canvas&gt;
+      &lt;ScrollControls pages={3}&gt;
+        &lt;RotatingModel /&gt;
+      &lt;/ScrollControls&gt;
+    &lt;/Canvas&gt;
+  );
+}</pre>
+
+        <h2 class="section-title" id="seealso">See also</h2>
+        <div class="see-also">
+          <a href="threejs.html">Three.js</a>
+          <a href="webgl.html">WebGL</a>
+          <a href="tools.html">Tools &amp; Pipeline</a>
+          <a href="index.html">Main Page</a>
+        </div>
+
+      </main>
+
+      <aside class="sidebar">
+        <div class="infobox">
+          <div class="infobox-title">React Three Fiber</div>
+          <table>
+            <tr><td>Based on</td><td><a href="threejs.html">Three.js</a></td></tr>
+            <tr><td>Framework</td><td>React</td></tr>
+            <tr><td>Maintainer</td><td>Poimandres (Pmndrs)</td></tr>
+            <tr><td>Language</td><td>JavaScript / TypeScript</td></tr>
+            <tr><td>License</td><td>MIT</td></tr>
+            <tr><td>Companion</td><td>@react-three/drei</td></tr>
+          </table>
+        </div>
+
+        <div class="categories">
+          <div class="categories-label">Categories</div>
+          <span class="cat-tag">React</span>
+          <span class="cat-tag">Three.js</span>
+          <span class="cat-tag">JavaScript</span>
+          <span class="cat-tag">3D Graphics</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-nav">
+      <a href="index.html">Main Page</a>
+      <a href="threejs.html">Three.js</a>
+      <a href="react-three-fiber.html">React Three Fiber</a>
+      <a href="webgl.html">WebGL</a>
+      <a href="spline.html">Spline</a>
+      <a href="tools.html">Tools</a>
+    </div>
+    <hr class="footer-line">
+    <p>3D Web Experience Wiki &copy; 2026. Content is available under Creative Commons Attribution-ShareAlike.</p>
+  </footer>
+
+</body>
+</html>
+

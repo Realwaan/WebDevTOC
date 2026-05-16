@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyCalculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="calc-wrapper">
+    <div class="calc-title">My Calculator - Activity</div>
+    <div class="calculator">
+      <div class="display-area">
+        <div class="memory-indicator" id="memIndicator">M</div>
+        <div class="equation-display" id="equationDisplay"></div>
+        <div class="main-display" id="mainDisplay">0</div>
+      </div>
+      <div class="btn-grid">
+        <button class="btn btn-mem" id="btnMC" onclick="memClear()">MC</button>
+        <button class="btn btn-mem" id="btnMR" onclick="memRecall()">MR</button>
+        <button class="btn btn-mem" id="btnMS" onclick="memSubtract()">M−</button>
+        <button class="btn btn-mem" id="btnMA" onclick="memAdd()">M+</button>
+
+        <button class="btn btn-util" onclick="clearInput()">C</button>
+        <button class="btn btn-util" onclick="allClear()">AC</button>
+        <button class="btn btn-util" onclick="backspace()">⌫</button>
+        <button class="btn btn-op" title="Divide" onclick="pressOp('/')">÷</button>
+
+        <button class="btn btn-num" onclick="pressNum('7')">7</button>
+        <button class="btn btn-num" onclick="pressNum('8')">8</button>
+        <button class="btn btn-num" onclick="pressNum('9')">9</button>
+        <button class="btn btn-op" title="Multiply" onclick="pressOp('*')">×</button>
+
+        <button class="btn btn-num" onclick="pressNum('4')">4</button>
+        <button class="btn btn-num" onclick="pressNum('5')">5</button>
+        <button class="btn btn-num" onclick="pressNum('6')">6</button>
+        <button class="btn btn-op" title="Subtract" onclick="pressOp('-')">−</button>
+
+        <button class="btn btn-num" onclick="pressNum('1')">1</button>
+        <button class="btn btn-num" onclick="pressNum('2')">2</button>
+        <button class="btn btn-num" onclick="pressNum('3')">3</button>
+        <button class="btn btn-op" title="Add" onclick="pressOp('+')">+</button>
+
+        <button class="btn btn-num" onclick="pressDecimal()">.</button>
+        <button class="btn btn-num" onclick="pressNum('0')">0</button>
+        <button class="btn btn-eq span-2" onclick="pressEquals()">=</button>
+      </div>
+    </div>
+  </div>
+  <script src="CalculatorScript.js"></script>
+</body>
+
+</html>

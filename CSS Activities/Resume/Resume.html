@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marc Andrei B. Regulacion - Resume</title>
+  </head>
+<body>
+  <main class="resume-shell">
+    <div class="top-controls">
+      <button id="darkModeBtn" type="button">Dark Mode</button>
+      <button class="secbtn" type="button" data-go="summarySection">Hide Summary</button>
+      <button class="secbtn" type="button" data-go="experienceSection">Hide Experience</button>
+      <button class="secbtn" type="button" data-go="educationSection">Hide Education</button>
+      <button class="secbtn" type="button" data-go="additionalSection">Hide Additional</button>
+    </div>
+
+    <header class="hero">
+      <div class="photo-wrap">
+        <img src="profilepic.JPG" alt="Marc Andrei profile photo" />
+      </div>
+      <div class="identity">
+        <h1>MARC ANDREI B. REGULACION</h1>
+        <div class="contact-grid">
+          <div class="label">Address:</div>
+          <div class="value">Firecrash Bankal, Lapu-Lapu City</div>
+
+          <div class="label">Phone:</div>
+          <div class="value">+63 976-039-9746</div>
+
+          <div class="label">Email:</div>
+          <div class="value">andreiregulacion996@gmail.com</div>
+
+          <div class="label">Website:</div>
+          <div class="value">keshie.space</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="block" id="summarySection">
+      <h2>Summary</h2>
+      <p>
+        ICT student with hands-on experience in robotics, programming, and student-led
+        technical projects. Looking for opportunities where I can apply what I learned in
+        school, continue improving my skills, and contribute to practical solutions.
+      </p>
+    </section>
+
+    <section class="block" id="experienceSection">
+      <h2>Experience</h2>
+
+      <article class="entry">
+        <div class="entry-head">
+          <h3>C++ Programmer</h3>
+          <span>Jan 2023 - Present</span>
+        </div>
+        <ul>
+          <li>Built a PID line tracing program for our robotics project.</li>
+          <li>Improved sensor behavior so the robot could adapt better on changing paths.</li>
+          <li>Worked with the team to optimize response time and improve run consistency.</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <div class="entry-head">
+          <h3>Website Head</h3>
+          <span>Feb 2021 - Dec 2022</span>
+        </div>
+        <ul>
+          <li>Developed a student website where classmates could access module resources.</li>
+          <li>Handled content updates and coordinated with mentors for site improvements.</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <div class="entry-head">
+          <h3>Junior Executor</h3>
+          <span>Mar 2021 - Jan 2022</span>
+        </div>
+        <ul>
+          <li>Created and maintained a working executor with DLL integration for automation tasks.</li>
+          <li>Prepared feasibility checks and risk notes during project planning.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="block" id="educationSection">
+      <h2>Education</h2>
+
+      <article class="entry edu">
+        <div class="entry-head">
+          <h3>Lapu-Lapu City Central Elementary School</h3>
+          <span>2016 - 2019</span>
+        </div>
+        <p class="sub">With Honors</p>
+        <ul>
+          <li>Robotics Awardee</li>
+          <li>DSPC Radio Broadcasting</li>
+        </ul>
+      </article>
+
+      <article class="entry edu">
+        <div class="entry-head">
+          <h3>Marigondon National High School</h3>
+          <span>2019 - 2023</span>
+        </div>
+        <p class="sub">With Honors</p>
+      </article>
+
+      <article class="entry edu">
+        <div class="entry-head">
+          <h3>Science and Technology Education Center</h3>
+          <span>2023 - 2025</span>
+        </div>
+        <p class="sub">With Honors</p>
+      </article>
+
+      <article class="entry edu">
+        <div class="entry-head">
+          <h3>Cebu Institute of Technology-University</h3>
+          <span>2025 - Present</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="block" id="additionalSection">
+      <h2>Additional Information</h2>
+      <ul class="additional">
+        <li><strong>Technical Skills:</strong> C++, Web Development Basics, Robotics and Automation, CAD for Mechatronics</li>
+        <li><strong>Languages:</strong> English, Cebuano, Nihongo</li>
+        <li><strong>Awards/Activities:</strong> Participated in the "Innovation for Tomorrow" community outreach program that promoted STEM learning.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    var darkOn = false;
+    var db = document.getElementById("darkModeBtn");
+    var bdy = document.body;
+
+    db.onclick = function () {
+      darkOn = !darkOn;
+      if (darkOn) {
+        bdy.classList.add("darkish");
+        db.textContent = "Light Mode";
+      } else {
+        bdy.classList.remove("darkish");
+        db.textContent = "Dark Mode";
+      }
+    };
+
+    var btns = document.querySelectorAll(".secbtn");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function () {
+        var x = this.getAttribute("data-go");
+        var sec = document.getElementById(x);
+
+        if (sec.classList.contains("hiddenSec")) {
+          sec.classList.remove("hiddenSec");
+          this.textContent = this.textContent.replace("Show", "Hide");
+        } else {
+          sec.classList.add("hiddenSec");
+          this.textContent = this.textContent.replace("Hide", "Show");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+

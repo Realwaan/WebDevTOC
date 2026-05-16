@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebGL - 3D Web Experience Wiki</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="topbar">
+    <span class="topbar-logo">FANDOM</span>
+    <div class="topbar-search">
+      <input type="text" placeholder="Search this wiki">
+    </div>
+    <div class="topbar-right">
+      <a href="#">Explore</a>
+      <a href="#">Sign In</a>
+    </div>
+  </nav>
+
+  <header class="wiki-header">
+    <div class="wiki-header-top">
+      <span class="wiki-title">3D Web Experience Wiki</span>
+      <span class="wiki-stat">6 pages</span>
+    </div>
+    <nav class="tab-nav">
+      <a href="index.html">Home</a>
+      <a href="threejs.html">Three.js</a>
+      <a href="react-three-fiber.html">React Three Fiber</a>
+      <a href="webgl.html" class="current">WebGL</a>
+      <a href="spline.html">Spline</a>
+      <a href="tools.html">Tools &amp; Pipeline</a>
+    </nav>
+  </header>
+
+  <div class="page-wrap">
+    <div class="breadcrumb">
+      <a href="index.html">3D Web Experience Wiki</a>
+      <span class="sep">&rsaquo;</span>
+      <a href="#">Web APIs</a>
+      <span class="sep">&rsaquo;</span>
+      WebGL
+    </div>
+
+    <div class="article-wrap">
+      <main class="article-body">
+        <h1 class="page-title">WebGL</h1>
+
+        <div class="toc">
+          <div class="toc-header">
+            Contents <span class="toc-toggle">[hide]</span>
+          </div>
+          <ol>
+            <li><a href="#about">About</a></li>
+            <li><a href="#pipeline">Rendering pipeline</a></li>
+            <li><a href="#shaders">Shaders</a></li>
+            <li><a href="#vs-threejs">Comparison with Three.js</a></li>
+            <li><a href="#webgl2">WebGL 2.0</a></li>
+            <li><a href="#support">Browser support</a></li>
+            <li><a href="#seealso">See also</a></li>
+          </ol>
+        </div>
+
+        <h2 class="section-title" id="about">About</h2>
+        <p>
+          <strong>WebGL</strong> (Web Graphics Library) is a JavaScript API for rendering 2D and 3D
+          graphics in the browser through the HTML <code>&lt;canvas&gt;</code> element. It is based on
+          OpenGL ES 2.0 and gives web pages direct access to the GPU without requiring any plugins.
+        </p>
+        <p>
+          Nearly every 3D library for the web — <a href="threejs.html">Three.js</a>,
+          <a href="react-three-fiber.html">React Three Fiber</a>, Babylon.js — compiles down to WebGL
+          calls under the hood. Most developers never interact with WebGL directly because the API is
+          extremely verbose; even drawing a single colored triangle takes dozens of lines of code.
+          That said, understanding what WebGL does is useful context for working with any of the libraries
+          that sit on top of it.
+        </p>
+
+        <h2 class="section-title" id="pipeline">Rendering pipeline</h2>
+        <p>Data flows from JavaScript (running on the CPU) to shader programs (running on the GPU):</p>
+<pre class="code">JavaScript (CPU side)
+  1. Define vertex data as typed arrays (Float32Array)
+  2. Upload data to GPU memory via buffer objects
+  3. Compile vertex + fragment shaders from GLSL source
+  4. Set uniform variables (matrices, colors, textures)
+
+GPU pipeline
+  5. Vertex shader runs once per vertex (positioning)
+  6. Rasterizer fills triangles with fragments
+  7. Fragment shader runs once per pixel (coloring)
+  8. Output goes to the framebuffer (canvas)</pre>
+
+        <h2 class="section-title" id="shaders">Shaders</h2>
+        <p>
+          Shaders are small programs written in GLSL (OpenGL Shading Language) that execute on the GPU.
+          WebGL requires at least two shaders to draw anything:
+        </p>
+
+        <h3 class="sub-title">Vertex shader</h3>
+        <p>Runs once per vertex. Transforms 3D coordinates into screen positions.</p>
+<pre class="code">attribute vec4 a_position;
+uniform mat4 u_matrix;
+
+void main() {
+  gl_Position = u_matrix * a_position;
+}</pre>
+
+        <h3 class="sub-title">Fragment shader</h3>
+        <p>Runs once per pixel. Determines the color of each fragment.</p>
+<pre class="code">precision mediump float;
+uniform vec4 u_color;
+
+void main() {
+  gl_FragColor = u_color;
+}</pre>
+
+        <h2 class="section-title" id="vs-threejs">Comparison with Three.js</h2>
+        <table class="wiki-table">
+          <thead>
+            <tr><th>Aspect</th><th>Raw WebGL</th><th>Three.js</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Lines of code for a cube</td><td>~150</td><td>~15</td></tr>
+            <tr><td>Shader writing</td><td>Required</td><td>Optional</td></tr>
+            <tr><td>Learning curve</td><td>Very steep</td><td>Moderate</td></tr>
+            <tr><td>Model loading</td><td>Manual</td><td>Built-in loaders</td></tr>
+            <tr><td>Best suited for</td><td>Custom rendering engines</td><td>Most 3D web projects</td></tr>
+          </tbody>
+        </table>
+
+        <h2 class="section-title" id="webgl2">WebGL 2.0</h2>
+        <p>
+          WebGL 2.0, based on OpenGL ES 3.0, adds several capabilities over the original 1.0 spec:
+        </p>
+        <ul>
+          <li>Instanced rendering for drawing many copies of the same geometry efficiently</li>
+          <li>Multiple render targets</li>
+          <li>Uniform buffer objects</li>
+          <li>Transform feedback for GPU-side particle systems</li>
+          <li>Better texture formats and compression support</li>
+        </ul>
+
+        <h2 class="section-title" id="support">Browser support</h2>
+        <table class="wiki-table">
+          <thead>
+            <tr><th>Browser</th><th>WebGL 1.0</th><th>WebGL 2.0</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Chrome / Edge</td><td>Yes</td><td>Yes</td></tr>
+            <tr><td>Firefox</td><td>Yes</td><td>Yes</td></tr>
+            <tr><td>Safari</td><td>Yes</td><td>Yes (15+)</td></tr>
+            <tr><td>Chrome (Android)</td><td>Yes</td><td>Yes</td></tr>
+            <tr><td>Safari (iOS)</td><td>Yes</td><td>Yes (15+)</td></tr>
+          </tbody>
+        </table>
+
+        <h2 class="section-title" id="seealso">See also</h2>
+        <div class="see-also">
+          <a href="threejs.html">Three.js</a>
+          <a href="react-three-fiber.html">React Three Fiber</a>
+          <a href="tools.html">Tools &amp; Pipeline</a>
+        </div>
+
+      </main>
+
+      <aside class="sidebar">
+        <div class="infobox">
+          <div class="infobox-title">WebGL</div>
+          <table>
+            <tr><td>Specification</td><td>Khronos Group</td></tr>
+            <tr><td>Based on</td><td>OpenGL ES 2.0 / 3.0</td></tr>
+            <tr><td>Languages</td><td>JavaScript, GLSL</td></tr>
+            <tr><td>Current version</td><td>2.0</td></tr>
+            <tr><td>Rendering</td><td>GPU-accelerated</td></tr>
+            <tr><td>Output target</td><td>HTML canvas element</td></tr>
+          </table>
+        </div>
+
+        <div class="categories">
+          <div class="categories-label">Categories</div>
+          <span class="cat-tag">Web APIs</span>
+          <span class="cat-tag">GPU</span>
+          <span class="cat-tag">3D Graphics</span>
+          <span class="cat-tag">Khronos Group</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-nav">
+      <a href="index.html">Main Page</a>
+      <a href="threejs.html">Three.js</a>
+      <a href="react-three-fiber.html">React Three Fiber</a>
+      <a href="webgl.html">WebGL</a>
+      <a href="spline.html">Spline</a>
+      <a href="tools.html">Tools</a>
+    </div>
+    <hr class="footer-line">
+    <p>3D Web Experience Wiki &copy; 2026. Content is available under Creative Commons Attribution-ShareAlike.</p>
+  </footer>
+
+</body>
+</html>
+

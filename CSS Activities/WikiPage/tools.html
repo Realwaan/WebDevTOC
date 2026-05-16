@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools &amp; Pipeline - 3D Web Experience Wiki</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="topbar">
+    <span class="topbar-logo">FANDOM</span>
+    <div class="topbar-search">
+      <input type="text" placeholder="Search this wiki">
+    </div>
+    <div class="topbar-right">
+      <a href="#">Explore</a>
+      <a href="#">Sign In</a>
+    </div>
+  </nav>
+
+  <header class="wiki-header">
+    <div class="wiki-header-top">
+      <span class="wiki-title">3D Web Experience Wiki</span>
+      <span class="wiki-stat">6 pages</span>
+    </div>
+    <nav class="tab-nav">
+      <a href="index.html">Home</a>
+      <a href="threejs.html">Three.js</a>
+      <a href="react-three-fiber.html">React Three Fiber</a>
+      <a href="webgl.html">WebGL</a>
+      <a href="spline.html">Spline</a>
+      <a href="tools.html" class="current">Tools &amp; Pipeline</a>
+    </nav>
+  </header>
+
+  <div class="page-wrap">
+    <div class="breadcrumb">
+      <a href="index.html">3D Web Experience Wiki</a>
+      <span class="sep">&rsaquo;</span>
+      <a href="#">Workflow</a>
+      <span class="sep">&rsaquo;</span>
+      Tools &amp; Pipeline
+    </div>
+
+    <div class="article-wrap">
+      <main class="article-body">
+        <h1 class="page-title">Tools &amp; Pipeline</h1>
+
+        <div class="toc">
+          <div class="toc-header">
+            Contents <span class="toc-toggle">[hide]</span>
+          </div>
+          <ol>
+            <li><a href="#about">About</a></li>
+            <li><a href="#formats">Model formats</a></li>
+            <li><a href="#pipeline">Optimization pipeline</a></li>
+            <li><a href="#compression">glTF compression</a></li>
+            <li><a href="#loading">Loading models in code</a></li>
+            <li><a href="#mistakes">Common mistakes</a></li>
+            <li><a href="#seealso">See also</a></li>
+          </ol>
+        </div>
+
+        <h2 class="section-title" id="about">About</h2>
+        <p>
+          Getting a 3D model from a tool like Blender into a web browser in a way that actually performs
+          well is a multi-step process. This page documents the asset pipeline: which file formats work
+          best for the web, how to reduce file sizes, and how to load models efficiently in
+          <a href="threejs.html">Three.js</a> and <a href="react-three-fiber.html">React Three Fiber</a>.
+        </p>
+        <p>
+          A general rule is to keep model files under 5 MB whenever possible. Larger files cause slow
+          load times and eat through mobile data. The tools described below can typically get file
+          sizes well under that threshold.
+        </p>
+
+        <h2 class="section-title" id="formats">Model formats</h2>
+        <table class="wiki-table">
+          <thead>
+            <tr><th>Format</th><th>Extension</th><th>Typical use</th><th>Size</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>glTF / GLB</strong></td>
+              <td>.gltf, .glb</td>
+              <td>Standard format for web delivery. Recommended for all projects.</td>
+              <td>Smallest</td>
+            </tr>
+            <tr>
+              <td>FBX</td>
+              <td>.fbx</td>
+              <td>Interchange format between 3D tools. Not meant for final delivery.</td>
+              <td>Large</td>
+            </tr>
+            <tr>
+              <td>OBJ</td>
+              <td>.obj</td>
+              <td>Simple static meshes. No animation support.</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td>USDZ</td>
+              <td>.usdz</td>
+              <td>Apple AR Quick Look on iOS devices.</td>
+              <td>Medium</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          GLB (binary glTF) is the preferred format because it bundles geometry, materials, textures,
+          and animations into a single file. Always convert to GLB before deploying to the web.
+        </p>
+
+        <h2 class="section-title" id="pipeline">Optimization pipeline</h2>
+        <p>A typical workflow from authoring to deployment:</p>
+        <ol>
+          <li>Model the asset in Blender, Maya, or Cinema 4D.</li>
+          <li>Reduce polygon count — aim for under 100K polygons for web use. In Blender you can use 
+            the Decimate modifier for this.</li>
+          <li>Bake textures and combine materials where possible. Fewer materials means fewer
+            draw calls and better rendering performance.</li>
+          <li>Export as GLB.</li>
+          <li>Run compression (see below).</li>
+          <li>Check the final file size. If it is over 5 MB, go back and reduce further.</li>
+        </ol>
+
+        <h2 class="section-title" id="compression">glTF compression</h2>
+        <p>
+          <strong>@gltf-transform/cli</strong> is the standard command-line tool for optimizing
+          glTF and GLB files.
+        </p>
+
+        <h3 class="sub-title">Install</h3>
+<pre class="code">npm install -g @gltf-transform/cli</pre>
+
+        <h3 class="sub-title">Typical commands</h3>
+<pre class="code"># Full optimization: Draco geometry compression + WebP textures
+gltf-transform optimize input.glb output.glb \
+  --compress draco \
+  --texture-compress webp
+
+# Geometry compression only
+gltf-transform draco input.glb output.glb
+
+# Resize textures to a maximum of 1024x1024
+gltf-transform resize input.glb output.glb --width 1024 --height 1024</pre>
+
+        <h3 class="sub-title">Compression methods</h3>
+        <table class="wiki-table">
+          <thead>
+            <tr><th>Method</th><th>Compresses</th><th>Typical savings</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Draco</td><td>Geometry (vertices, normals, UVs)</td><td>80-90%</td></tr>
+            <tr><td>KTX2 / Basis</td><td>Textures (GPU-compressed)</td><td>60-75%</td></tr>
+            <tr><td>WebP</td><td>Textures (image format conversion)</td><td>25-35%</td></tr>
+            <tr><td>Meshopt</td><td>Geometry + animation data</td><td>70-80%</td></tr>
+          </tbody>
+        </table>
+
+        <h2 class="section-title" id="loading">Loading models in code</h2>
+
+        <h3 class="sub-title">React Three Fiber with loading indicator</h3>
+<pre class="code">import { useGLTF, useProgress, Html } from '@react-three/drei';
+import { Suspense } from 'react';
+
+function Loader() {
+  const { progress } = useProgress();
+  return &lt;Html center&gt;{progress.toFixed(0)}%&lt;/Html&gt;;
+}
+
+export default function Scene() {
+  return (
+    &lt;Canvas&gt;
+      &lt;Suspense fallback={&lt;Loader /&gt;}&gt;
+        &lt;Model /&gt;
+      &lt;/Suspense&gt;
+    &lt;/Canvas&gt;
+  );
+}</pre>
+
+        <h3 class="sub-title">Preloading</h3>
+<pre class="code">// Call preload outside the component to start downloading early
+useGLTF.preload('/models/product.glb');
+
+function Product() {
+  const { scene } = useGLTF('/models/product.glb');
+  return &lt;primitive object={scene} /&gt;;
+}</pre>
+
+        <h2 class="section-title" id="mistakes">Common mistakes</h2>
+        <p>Things that frequently cause performance problems with 3D on the web:</p>
+        <ul>
+          <li><strong>No loading indicator.</strong> 3D assets are large. Users will leave if they see a blank 
+            screen with no feedback while the model downloads.</li>
+          <li><strong>Shipping uncompressed models.</strong> A raw FBX export from Blender can be 50+&nbsp;MB. 
+            Always convert to GLB and run Draco compression before deploying.</li>
+          <li><strong>Ignoring mobile.</strong> Most web traffic is mobile. Test on actual phones and tablets, 
+            reduce quality where needed, and consider providing a static image fallback.</li>
+          <li><strong>Adding 3D where it is not needed.</strong> A rotating product model helps users make 
+            purchase decisions. Random floating shapes in a hero section mostly just slow things down.</li>
+        </ul>
+
+        <h2 class="section-title" id="seealso">See also</h2>
+        <div class="see-also">
+          <a href="threejs.html">Three.js</a>
+          <a href="react-three-fiber.html">React Three Fiber</a>
+          <a href="webgl.html">WebGL</a>
+          <a href="spline.html">Spline</a>
+        </div>
+
+      </main>
+
+      <aside class="sidebar">
+        <div class="infobox">
+          <div class="infobox-title">Tools &amp; Pipeline</div>
+          <table>
+            <tr><td>CLI tool</td><td>gltf-transform</td></tr>
+            <tr><td>3D authoring</td><td>Blender, Maya, Cinema 4D</td></tr>
+            <tr><td>Output format</td><td>GLB (binary glTF)</td></tr>
+            <tr><td>Geometry comp.</td><td>Draco, Meshopt</td></tr>
+            <tr><td>Texture comp.</td><td>KTX2, WebP</td></tr>
+            <tr><td>Target file size</td><td>&lt; 5 MB</td></tr>
+          </table>
+        </div>
+
+        <div class="categories">
+          <div class="categories-label">Categories</div>
+          <span class="cat-tag">Pipeline</span>
+          <span class="cat-tag">glTF</span>
+          <span class="cat-tag">Optimization</span>
+          <span class="cat-tag">Blender</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-nav">
+      <a href="index.html">Main Page</a>
+      <a href="threejs.html">Three.js</a>
+      <a href="react-three-fiber.html">React Three Fiber</a>
+      <a href="webgl.html">WebGL</a>
+      <a href="spline.html">Spline</a>
+      <a href="tools.html">Tools</a>
+    </div>
+    <hr class="footer-line">
+    <p>3D Web Experience Wiki &copy; 2026. Content is available under Creative Commons Attribution-ShareAlike.</p>
+  </footer>
+
+</body>
+</html>
+
