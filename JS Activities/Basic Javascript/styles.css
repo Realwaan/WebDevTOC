@@ -28,6 +28,29 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
+.top-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #d9dee4;
+  background: #f5f7fa;
+}
+
+.top-controls button {
+  border: 1px solid #7f9ab5;
+  background: #fff;
+  color: #123252;
+  padding: 7px 11px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.top-controls button:hover {
+  background: #e9f1f8;
+}
+
 .hero {
   display: grid;
   grid-template-columns: 130px 1fr;
@@ -47,6 +70,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   display: block;
 }
 
@@ -110,7 +134,7 @@ body {
   margin-top: 10px;
 }
 
-.entry + .entry {
+.entry+.entry {
   margin-top: 18px;
 }
 
@@ -150,6 +174,49 @@ body {
   font-weight: 600;
 }
 
+.hiddenSec {
+  display: none;
+}
+
+body.darkish {
+  --paper: #11161d;
+  --ink: #ebf2f8;
+  --muted: #b7c5d4;
+  --brand: #7dc1ff;
+  --line: #3f5e79;
+  --card: #1a232d;
+}
+
+body.darkish .resume-shell {
+  border-color: #2d3d4d;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+body.darkish .top-controls {
+  background: #141b23;
+  border-bottom: 1px solid #2a3846;
+}
+
+body.darkish .top-controls button {
+  background: #213040;
+  border-color: #44617d;
+  color: #d8e9fb;
+}
+
+body.darkish .top-controls button:hover {
+  background: #2b4156;
+}
+
+body.darkish .identity h1,
+body.darkish .contact-grid .label,
+body.darkish .contact-grid .value,
+body.darkish .entry-head h3,
+body.darkish .entry-head span,
+body.darkish .block p,
+body.darkish .block li {
+  color: #dce9f5;
+}
+
 @media (max-width: 720px) {
   body {
     padding: 18px 10px;
@@ -164,6 +231,10 @@ body {
   .block {
     padding-left: 18px;
     padding-right: 18px;
+  }
+
+  .top-controls {
+    padding: 10px;
   }
 
   .hero {

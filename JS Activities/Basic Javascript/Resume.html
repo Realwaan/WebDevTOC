@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marc Andrei B. Regulacion - Resume</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
   <main class="resume-shell">
+    <div class="top-controls">
+      <button id="darkModeBtn" type="button">Dark Mode</button>
+      <button class="secbtn" type="button" data-go="summarySection">Hide Summary</button>
+      <button class="secbtn" type="button" data-go="experienceSection">Hide Experience</button>
+      <button class="secbtn" type="button" data-go="educationSection">Hide Education</button>
+      <button class="secbtn" type="button" data-go="additionalSection">Hide Additional</button>
+    </div>
+
     <header class="hero">
       <div class="photo-wrap">
         <img src="profilepic.JPG" alt="Marc Andrei profile photo" />
@@ -32,7 +38,7 @@
       </div>
     </header>
 
-    <section class="block">
+    <section class="block" id="summarySection">
       <h2>Summary</h2>
       <p>
         ICT student with hands-on experience in robotics, programming, and student-led
@@ -41,7 +47,7 @@
       </p>
     </section>
 
-    <section class="block">
+    <section class="block" id="experienceSection">
       <h2>Experience</h2>
 
       <article class="entry">
@@ -79,7 +85,7 @@
       </article>
     </section>
 
-    <section class="block">
+    <section class="block" id="educationSection">
       <h2>Education</h2>
 
       <article class="entry edu">
@@ -118,17 +124,48 @@
       </article>
     </section>
 
-    <section class="block">
+    <section class="block" id="additionalSection">
       <h2>Additional Information</h2>
       <ul class="additional">
-        <li><strong>Technical Skills:</strong> C++, Web Development Basics, Robotics and Automation, CAD for
-          Mechatronics</li>
+        <li><strong>Technical Skills:</strong> C++, Web Development Basics, Robotics and Automation, CAD for Mechatronics</li>
         <li><strong>Languages:</strong> English, Cebuano, Nihongo</li>
-        <li><strong>Awards/Activities:</strong> Participated in the "Innovation for Tomorrow" community outreach program
-          that promoted STEM learning.</li>
+        <li><strong>Awards/Activities:</strong> Participated in the "Innovation for Tomorrow" community outreach program that promoted STEM learning.</li>
       </ul>
     </section>
   </main>
-</body>
 
+  <script>
+    var darkOn = false;
+    var db = document.getElementById("darkModeBtn");
+    var bdy = document.body;
+
+    db.onclick = function () {
+      darkOn = !darkOn;
+      if (darkOn) {
+        bdy.classList.add("darkish");
+        db.textContent = "Light Mode";
+      } else {
+        bdy.classList.remove("darkish");
+        db.textContent = "Dark Mode";
+      }
+    };
+
+    var btns = document.querySelectorAll(".secbtn");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function () {
+        var x = this.getAttribute("data-go");
+        var sec = document.getElementById(x);
+
+        if (sec.classList.contains("hiddenSec")) {
+          sec.classList.remove("hiddenSec");
+          this.textContent = this.textContent.replace("Show", "Hide");
+        } else {
+          sec.classList.add("hiddenSec");
+          this.textContent = this.textContent.replace("Hide", "Show");
+        }
+      });
+    }
+  </script>
+</body>
 </html>
+
